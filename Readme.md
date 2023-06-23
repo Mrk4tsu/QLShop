@@ -1,4 +1,9 @@
 ﻿# ASP.CORE 5.0 Project
+
+## Install
+- Microsoft.EntityFrameworkCore.SqlServer
+- Microsoft.EntityFrameworkCore.Design
+- Microsoft.EntityFrameworkCore.Tools
 ## Quản lý người dùng
 ## Phân quyền người dùng
 
