@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Users.Data.EF;
 
 namespace Users.Data.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    partial class UsersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230623123200_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,7 +286,7 @@ namespace Users.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 23, 19, 36, 51, 742, DateTimeKind.Local).AddTicks(7515));
+                        .HasDefaultValue(new DateTime(2023, 6, 23, 19, 32, 0, 178, DateTimeKind.Local).AddTicks(4278));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -373,7 +375,7 @@ namespace Users.Data.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreate = new DateTime(2023, 6, 23, 19, 36, 51, 752, DateTimeKind.Local).AddTicks(244),
+                            DateCreate = new DateTime(2023, 6, 23, 19, 32, 0, 188, DateTimeKind.Local).AddTicks(5304),
                             OgPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -466,14 +468,14 @@ namespace Users.Data.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "Genuine Apple Iphone 14 phone",
-                            Details = "Genuine Apple Iphone 14 phone",
+                            Description = "Samsung Galaxy S22 Ultra phone with a shocking discount",
+                            Details = "Samsung Galaxy S22 Ultra phone with a shocking discount",
                             LanguageId = "en-US",
-                            Name = "Iphone 14 128GB",
+                            Name = "Samsung Galaxy S22 Ultra",
                             ProductId = 1,
-                            SeoAlias = "iphon-14-128GB",
-                            SeoDescription = "Genuine Apple Iphone 14 phone",
-                            SeoTitle = "Genuine Apple Iphone 14 phone"
+                            SeoAlias = "samsung-galaxy-s22-ultra",
+                            SeoDescription = "Samsung Galaxy S22 Ultra phone with a shocking discount",
+                            SeoTitle = "Samsung Galaxy S22 Ultra phone with a shocking discount"
                         });
                 });
 

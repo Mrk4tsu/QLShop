@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Users.Data.Configurations;
 using Users.Data.Entities;
+using Users.Data.Extensions;
 
 namespace Users.Data.EF
 {
@@ -11,6 +12,7 @@ namespace Users.Data.EF
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Config using Fluent API
             modelBuilder.ApplyConfiguration(new CartConfiguration());
 
             modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
@@ -26,7 +28,8 @@ namespace Users.Data.EF
             modelBuilder.ApplyConfiguration(new ProductTranslationConfiguration());
             modelBuilder.ApplyConfiguration(new PromotionConfiguration());
             modelBuilder.ApplyConfiguration(new TransactionConfiguration());
-            //base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Seed();
         }
         #region[Data Set]
         public DbSet<Product> Products { get; set; }
