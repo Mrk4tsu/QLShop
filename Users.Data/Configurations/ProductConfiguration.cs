@@ -10,6 +10,7 @@ namespace Users.Data.Configurations
         {
             builder.ToTable("Products");
             builder.HasKey(x => x.ID);
+            builder.Property(x => x.ID).UseIdentityColumn();
             builder.Property(x => x.Price).IsRequired();
             builder.Property(x => x.OgPrice).IsRequired();
             builder.Property(x => x.Stock).IsRequired().HasDefaultValue(0);

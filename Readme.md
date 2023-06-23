@@ -10,4 +10,5 @@
 ## Technologies
 - ASP.NET Core 5.0
 - Entity Framework Core 5.0
-## [Turtorial](https://www.learnentityframeworkcore.com/)
+## [References](https://learn.microsoft.com/vi-vn/ef/core/)
+## [Turtorial Fluent API](https://www.learnentityframeworkcore.com/)

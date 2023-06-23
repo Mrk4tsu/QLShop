@@ -13,15 +13,15 @@ namespace Users.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductInCategory> builder)
         {
-            builder.HasKey(t => new
-            {
-                t.Category,
-                t.CategoryId
-            });
+            builder.HasKey(t => new { t.CategoryId, t.ProductId });
+
             builder.ToTable("ProductInCategories");
 
-            builder.HasOne(t => t.Product).WithMany(p => p.ProductInCategories).HasForeignKey(p => p.ProductId);
-            builder.HasOne(t => t.Category).WithMany(p => p.ProductInCategories).HasForeignKey(p => p.CategoryId);
+            builder.HasOne(t => t.Product).WithMany(pc => pc.ProductInCategories)
+                .HasForeignKey(pc => pc.ProductId);
+
+            builder.HasOne(t => t.Category).WithMany(pc => pc.ProductInCategories)
+              .HasForeignKey(pc => pc.CategoryId);
         }
     }
 }
