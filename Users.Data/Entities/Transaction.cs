@@ -14,6 +14,7 @@ namespace Users.Data.Entities
         public string Message { set; get; }
         public TransactionStatus Status { set; get; }
         public int Provider { set; get; }
-
+        public Guid UserID { set; get; }
+        public AppUsers AppUsers { set; get; }
     }
 }
