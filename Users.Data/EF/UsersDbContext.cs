@@ -49,6 +49,7 @@ namespace Users.Data.EF
         public DbSet<AppConfig> AppConfigs { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
+        public DbSet<ProductInCategory> ProductInCategories { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Order> Orders { get; set; }

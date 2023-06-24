@@ -108,8 +108,8 @@ namespace Users.Data.Extensions
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "Abcd1234$"),
                 SecurityStamp = string.Empty,
-                Name = "Toan",
-                FirstName = "Bach",
+                Name = "Thắng",
+                FirstName = "Nguyễn Đức",
                 DoB = new DateTime(22,2,22)
             });
 
