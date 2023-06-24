@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Users.Data.EF;
 
 namespace Users.Data.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    partial class UsersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230623171248_ASPNetCoreIndentityDatabase")]
+    partial class ASPNetCoreIndentityDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,13 +94,6 @@ namespace Users.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("AppUserRole");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            RoleId = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -175,16 +170,6 @@ namespace Users.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "275a680a-a672-418d-a882-9334b8bbd178",
-                            Description = "Administrator role",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Users.Data.Entities.AppUsers", b =>
@@ -199,8 +184,9 @@ namespace Users.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DoB")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DoB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -251,27 +237,6 @@ namespace Users.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b0a822e7-f6d2-47a8-8078-237865996f89",
-                            DoB = new DateTime(22, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "ndt2212@gmail.com",
-                            EmailConfirmed = true,
-                            FirstName = "Bach",
-                            LockoutEnabled = false,
-                            Name = "Toan",
-                            NormalizedEmail = "katsu2212@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK/Cwh/2gzStwtaSIYaWChoQBbpIBYzL1Gz9wS0XtgNkSOv5d9sPsVqCk5TWmXSh7A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Users.Data.Entities.Cart", b =>
@@ -510,7 +475,7 @@ namespace Users.Data.Migrations
                     b.Property<DateTime>("OrderDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 6, 24, 7, 45, 49, 381, DateTimeKind.Local).AddTicks(8781));
+                        .HasDefaultValue(new DateTime(2023, 6, 24, 0, 12, 47, 663, DateTimeKind.Local).AddTicks(8290));
 
                     b.Property<string>("ShipAddress")
                         .IsRequired()
@@ -601,7 +566,7 @@ namespace Users.Data.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreate = new DateTime(2023, 6, 24, 7, 45, 49, 394, DateTimeKind.Local).AddTicks(8178),
+                            DateCreate = new DateTime(2023, 6, 24, 0, 12, 47, 676, DateTimeKind.Local).AddTicks(1063),
                             OgPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,

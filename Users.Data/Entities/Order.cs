@@ -9,14 +9,15 @@ namespace Users.Data.Entities
 {
     public class Order
     {
-        public int Id { set; get; }
-        public DateTime OrderDate { set; get; }
-        public Guid UserId { set; get; }
-        public string ShipName { set; get; }
-        public string ShipAddress { set; get; }
-        public string ShipEmail { set; get; }
-        public string ShipPhoneNumber { set; get; }
-        public OrderStatus Status { set; get; }
+        public int Id { get; set; }
+        public DateTime OrderDate { get; set; }
+        public Guid UserId { get; set; }
+        public string ShipName { get; set; }
+        public string ShipAddress { get; set; }
+        public string ShipEmail { get; set; }
+        public string ShipPhoneNumber { get; set; }
+        public OrderStatus Status { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
+        public AppUsers AppUsers { get; set; }
     }
 }
