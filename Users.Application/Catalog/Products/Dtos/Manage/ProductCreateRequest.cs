@@ -18,5 +18,6 @@ namespace Users.Application.Catalog.Products.Dtos.Manage
         public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public string LanguageId { get; set; }
+
     }
 }
