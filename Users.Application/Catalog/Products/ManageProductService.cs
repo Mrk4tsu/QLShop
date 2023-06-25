@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Server.IISIntegration;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,7 +13,6 @@ using Users.Data.Entities;
 using Users.Utilities.Exceptions;
 using Users.ViewModels.Base;
 using Users.ViewModels.Catalog.Products;
-using Users.ViewModels.Catalog.Products.Manage;
 using Users.ViewModels.Catalog.ProductsImage;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -117,7 +114,7 @@ namespace Users.Application.Catalog.Products
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PagedResult<ProductViewModel>> GetAllPageing(GetProductPagingRequest get)
+        public async Task<PagedResult<ProductViewModel>> GetAllPageing(GetManageProductPagingRequest get)
         {
             //Select Join
             var query = from p in _context.Products

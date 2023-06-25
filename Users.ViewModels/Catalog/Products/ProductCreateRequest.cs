@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Http;
 
-namespace Users.ViewModels.Catalog.Products.Manage
+namespace Users.ViewModels.Catalog.Products
 {
     public class ProductCreateRequest
     {

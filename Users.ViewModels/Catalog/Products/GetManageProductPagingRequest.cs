@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Users.ViewModels.Base;
 
-namespace Users.ViewModels.Catalog.Products.Manage
+namespace Users.ViewModels.Catalog.Products
 {
-    public class GetProductPagingRequest : PagingRequestBase
+    public class GetManageProductPagingRequest : PagingRequestBase
     {
         public string KeyWord { get; set; }
         public List<int> CategoryIDs { get; set; }
