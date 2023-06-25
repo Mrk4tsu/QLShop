@@ -1,4 +1,6 @@
-﻿namespace Users.Application.Catalog.Products.Dtos.Manage
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Users.ViewModels.Catalog.Products.Manage
 {
     public class ProductUpdateRequest
     {
@@ -10,5 +12,6 @@
         public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public string LanguageId { get; set; }
+        public IFormFile ThumbnailImage { get; set; }
     }
 }

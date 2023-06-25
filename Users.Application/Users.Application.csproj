@@ -1,12 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Users.Data\Users.Data.csproj" />
-    <ProjectReference Include="..\Users.Utilities\Users.Utilities.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.0" />
+		<FrameworkReference Include="Microsoft.AspNetCore.App"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Users.Data\Users.Data.csproj" />
+		<ProjectReference Include="..\Users.Utilities\Users.Utilities.csproj" />
+		<ProjectReference Include="..\Users.ViewModels\Users.ViewModels.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Users.Application.Catalog.Products.Dtos;
-using Users.Application.Catalog.Products.Dtos.Manage;
-using Users.Application.Dtos;
+using Users.ViewModels.Base;
+using Users.ViewModels.Catalog.Products;
+using Users.ViewModels.Catalog.Products.Manage;
+using Users.ViewModels.Catalog.ProductsImage;
 
 namespace Users.Application.Catalog.Products
 {
@@ -15,5 +17,9 @@ namespace Users.Application.Catalog.Products
         Task<bool> UpdateStock(int productID, int addQuantity);
         Task<int> Delete(int id);     
         Task<PagedResult<ProductViewModel>> GetAllPageing(GetProductPagingRequest get);
+        Task<int> AddImage(int productId, ProductImageCreateRequest request);
+        Task<int> RemoveImages(int imageID);
+        Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request);
+        Task<List<ProductImageViewModel>> GetListImage(int productID);
     }
 }

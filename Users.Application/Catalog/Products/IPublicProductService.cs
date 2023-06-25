@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Users.Application.Catalog.Products.Dtos;
-using Users.Application.Catalog.Products.Dtos.Public;
-using Users.Application.Dtos;
+using Users.ViewModels.Base;
+using Users.ViewModels.Catalog.Products;
+using Users.ViewModels.Catalog.Products.Public;
 
 namespace Users.Application.Catalog.Products
 {

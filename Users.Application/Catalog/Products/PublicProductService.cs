@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Users.Application.Catalog.Products.Dtos;
-using Users.Application.Catalog.Products.Dtos.Public;
-using Users.Application.Dtos;
 using Users.Data.EF;
+using Users.ViewModels.Base;
+using Users.ViewModels.Catalog.Products;
+using Users.ViewModels.Catalog.Products.Public;
 
 namespace Users.Application.Catalog.Products
 {

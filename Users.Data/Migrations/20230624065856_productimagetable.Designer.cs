@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Users.Data.EF;
 
 namespace Users.Data.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    partial class UsersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230624065856_productimagetable")]
+    partial class productimagetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,7 @@ namespace Users.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "178b8d06-a6dc-4c62-9ebf-d83924271e74",
+                            ConcurrencyStamp = "af2ad760-f287-40d6-ae7e-61107424e9b4",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -257,7 +259,7 @@ namespace Users.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f8400e17-fdf4-44a0-8181-7ad6fe945bcc",
+                            ConcurrencyStamp = "b9c36a3e-dc1f-40f6-b99f-814279be0060",
                             DoB = new DateTime(22, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ndt2212@gmail.com",
                             EmailConfirmed = true,
@@ -266,7 +268,7 @@ namespace Users.Data.Migrations
                             Name = "Thắng",
                             NormalizedEmail = "katsu2212@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBdwGZIrDHM04iQUsbHz8e2+QGfVYBiRQMR8CCooMWDHAv7xpnH7emNFcCpV50nNtg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED5Ks9I+NmCC+HHZcpgfQOX9KJodMOv9oOja0QY76Utd49XLAvjBY/6vyaqFo3MVAw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -599,7 +601,7 @@ namespace Users.Data.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreate = new DateTime(2023, 6, 25, 10, 59, 8, 552, DateTimeKind.Local).AddTicks(1907),
+                            DateCreate = new DateTime(2023, 6, 24, 13, 58, 55, 371, DateTimeKind.Local).AddTicks(6019),
                             OgPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,
@@ -621,8 +623,8 @@ namespace Users.Data.Migrations
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("FileSize")
-                        .HasColumnType("bigint");
+                    b.Property<int>("FileSize")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()

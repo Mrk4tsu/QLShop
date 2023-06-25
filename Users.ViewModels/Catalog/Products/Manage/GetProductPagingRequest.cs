@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Users.Application.Dtos;
+using Users.ViewModels.Base;
 
-namespace Users.Application.Catalog.Products.Dtos.Public
+namespace Users.ViewModels.Catalog.Products.Manage
 {
     public class GetProductPagingRequest : PagingRequestBase
     {
-        public int? CategoryID { get; set; }
+        public string KeyWord { get; set; }
+        public List<int> CategoryIDs { get; set; }
     }
 }
