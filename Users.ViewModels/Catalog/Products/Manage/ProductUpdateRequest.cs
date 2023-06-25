@@ -1,16 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 
-namespace Users.Application.Catalog.Products.Dtos
+namespace Users.ViewModels.Catalog.Products.Manage
 {
-    public class ProductViewModel
+    public class ProductUpdateRequest
     {
         public int ID { get; set; }
-        public decimal Price { get; set; }
-        public decimal OgPrice { get; set; }
-        public int Stock { get; set; }
-        public int ViewCount { get; set; }
-        public DateTime DateCreate { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Details { get; set; }
@@ -18,5 +12,6 @@ namespace Users.Application.Catalog.Products.Dtos
         public string SeoTitle { get; set; }
         public string SeoAlias { get; set; }
         public string LanguageId { get; set; }
+        public IFormFile ThumbnailImage { get; set; }
     }
 }
