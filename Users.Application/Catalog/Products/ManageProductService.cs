@@ -14,7 +14,6 @@ using Users.Utilities.Exceptions;
 using Users.ViewModels.Base;
 using Users.ViewModels.Catalog.Products;
 using Users.ViewModels.Catalog.ProductsImage;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Users.Application.Catalog.Products
 {
@@ -96,7 +95,8 @@ namespace Users.Application.Catalog.Products
                 };
             }
             _context.Products.Add(pr);
-            return await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+            return pr.ID;
         }
 
         public async Task<int> Delete(int id)
@@ -170,28 +170,30 @@ namespace Users.Application.Catalog.Products
         public async Task<int> Update(ProductUpdateRequest edit)
         {
             var product = await _context.Products.FindAsync(edit.ID);
-            var productTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == edit.ID && x.LanguageId == edit.LanguageId);
+            var productTranslations = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == edit.ID
+            && x.LanguageId == edit.LanguageId);
 
-            if (product == null || productTranslation == null)
-                throw new UserException($"Cannot find a product with ID: {edit.ID}");
+            if (product == null || productTranslations == null) throw new UserException($"Cannot find a product with id: {edit.ID}");
 
-            productTranslation.Name = edit.Name;
-            productTranslation.SeoAlias = edit.SeoAlias;
-            productTranslation.SeoDescription = edit.SeoDescription;
-            productTranslation.SeoTitle = edit.SeoTitle;
-            productTranslation.Details = edit.Details;
-            productTranslation.Description = edit.Description;
-            //Save file
+            productTranslations.Name = edit.Name;
+            productTranslations.SeoAlias = edit.SeoAlias;
+            productTranslations.SeoDescription = edit.SeoDescription;
+            productTranslations.SeoTitle = edit.SeoTitle;
+            productTranslations.Description = edit.Description;
+            productTranslations.Details = edit.Details;
+
+            //Save image
             if (edit.ThumbnailImage != null)
             {
-                var thumbnailImage = _context.ProductImages.FirstOrDefault(i => i.IsDefault == true && i.ProductID == edit.ID);
+                var thumbnailImage = await _context.ProductImages.FirstOrDefaultAsync(i => i.IsDefault == true && i.ProductID == edit.ID);
                 if (thumbnailImage != null)
                 {
                     thumbnailImage.FileSize = edit.ThumbnailImage.Length;
-                    thumbnailImage.ImagePath = await SaveFile(edit.ThumbnailImage);
+                    thumbnailImage.ImagePath = await this.SaveFile(edit.ThumbnailImage);
                     _context.ProductImages.Update(thumbnailImage);
                 }
             }
+
             return await _context.SaveChangesAsync();
         }
 
@@ -250,6 +252,52 @@ namespace Users.Application.Catalog.Products
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(ogFileName)}";
             await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
             return fileName;
+        }
+
+        public async Task<ProductViewModel> GetByID(int productID, string languageID)
+        {
+            var product = await _context.Products.FindAsync(productID);
+
+            var productTranslation = await _context.ProductTranslations.FirstOrDefaultAsync(x => x.ProductId == productID && x.LanguageId == languageID);
+
+            var productViewModel = new ProductViewModel()
+            {
+                ID = product.ID,
+                DateCreate = product.DateCreate,
+                Description = productTranslation != null ? productTranslation.Description : null,
+                LanguageId = productTranslation.LanguageId,
+                Details = productTranslation != null ? productTranslation.Details :null,
+                Name = productTranslation != null ? productTranslation.Name :null,
+                OgPrice = product.OgPrice,
+                Price = product.Price,
+                SeoAlias = productTranslation != null ? productTranslation.SeoAlias : null,
+                SeoDescription = productTranslation != null ? productTranslation.SeoDescription : null,
+                SeoTitle = productTranslation != null ? productTranslation.SeoTitle : null,
+                Stock = product.Stock,
+                ViewCount = product.ViewCount
+            };
+            return productViewModel;
+        }
+
+        public async Task<ProductImageViewModel> GetImageByID(int imageID)
+        {
+            var image =  await _context.ProductImages.FindAsync(imageID);
+            if (image == null)
+            {
+                throw new UserException($"Không tìm thấy hình ảnh nào có ID: {imageID}");
+            }
+            var viewModel = new ProductImageViewModel()
+            {
+                Caption = image.Caption,
+                DateCreated = image.DateCreate,
+                FileSize = image.FileSize,
+                Id = image.ID,
+                ImagePath = image.ImagePath,
+                IsDefault = image.IsDefault,
+                ProductId = image.ProductID,
+                SortOrder = image.SortOrder
+            };
+            return viewModel;
         }
     }
 }

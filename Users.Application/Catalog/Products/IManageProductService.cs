@@ -13,11 +13,13 @@ namespace Users.Application.Catalog.Products
         Task<bool> UpdatePrice(int procductID, decimal newPrice);
         Task AddViewCount(int productID);
         Task<bool> UpdateStock(int productID, int addQuantity);
-        Task<int> Delete(int id);     
+        Task<int> Delete(int id);
+        Task<ProductViewModel> GetByID(int productID, string languageID);
         Task<PagedResult<ProductViewModel>> GetAllPageing(GetManageProductPagingRequest get);
         Task<int> AddImage(int productId, ProductImageCreateRequest request);
         Task<int> RemoveImages(int imageID);
         Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request);
         Task<List<ProductImageViewModel>> GetListImage(int productID);
+        Task<ProductImageViewModel> GetImageByID(int imageID);
     }
 }

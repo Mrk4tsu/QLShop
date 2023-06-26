@@ -17,13 +17,14 @@ namespace Users.Application.Catalog.Products
             _context = context;
         }
 
-        public async Task<List<ProductViewModel>> GetAll()
+        public async Task<List<ProductViewModel>> GetAll(string languageID)
         {
             //Select Join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.ID equals pt.ProductId
                         join pic in _context.ProductInCategories on p.ID equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.Id
+                        where pt.LanguageId == languageID
                         select new { p, pt, pic };
             var data = await query.Select(x => new ProductViewModel()
                 {
@@ -44,13 +45,14 @@ namespace Users.Application.Catalog.Products
             return data;
         }
 
-        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryID(GetPublicProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryID(string languageID, GetPublicProductPagingRequest request)
         {
             //Select Join
             var query = from p in _context.Products
                         join pt in _context.ProductTranslations on p.ID equals pt.ProductId
                         join pic in _context.ProductInCategories on p.ID equals pic.ProductId
                         join c in _context.Categories on pic.CategoryId equals c.Id
+                        where pt.LanguageId == languageID
                         select new { p, pt, pic };
             //Filter
             if (request.CategoryID.HasValue && request.CategoryID.Value > 0)
