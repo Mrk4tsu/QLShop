@@ -12,3 +12,5 @@
 - Entity Framework Core 5.0
 ## [References](https://learn.microsoft.com/vi-vn/ef/core/)
 ## [Turtorial Fluent API](https://www.learnentityframeworkcore.com/)
+
+##Viết bừa
