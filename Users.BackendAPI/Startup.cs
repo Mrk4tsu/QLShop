@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Users.Application.Catalog.Products;
+using Users.Application.Common;
 using Users.Data.EF;
 using Users.Utilities.Constants;
 
@@ -33,6 +34,8 @@ namespace Users.BackendAPI
 
             //Declare API
             services.AddTransient<IPublicProductService, PublicProductService>();
+            services.AddTransient<IManageProductService, ManageProductService>();
+            services.AddTransient<IStorageService, FileStrorageService>();
 
             services.AddControllersWithViews();
 
