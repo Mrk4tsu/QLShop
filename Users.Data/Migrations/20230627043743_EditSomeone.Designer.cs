@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Users.Data.EF;
 
 namespace Users.Data.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    partial class UsersDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230627043743_EditSomeone")]
+    partial class EditSomeone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,7 +182,7 @@ namespace Users.Data.Migrations
                         new
                         {
                             Id = new Guid("8d04dce2-969a-435d-bba4-df3f325983dc"),
-                            ConcurrencyStamp = "04964321-7791-4188-aefb-caea97d2fb83",
+                            ConcurrencyStamp = "fbd5eb5c-73da-4d1b-9bd4-2d4dce89cc83",
                             Description = "Administrator role",
                             Name = "admin",
                             NormalizedName = "admin"
@@ -195,10 +197,6 @@ namespace Users.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
@@ -261,8 +259,7 @@ namespace Users.Data.Migrations
                         {
                             Id = new Guid("69bd714f-9576-45ba-b5b7-f00649be00de"),
                             AccessFailedCount = 0,
-                            Adress = "2 Lê Văn Tám",
-                            ConcurrencyStamp = "c81db93c-cdce-4a48-a34e-4930ef445cdd",
+                            ConcurrencyStamp = "1aed9964-081c-4928-ac69-ff3fe8014c69",
                             DoB = new DateTime(22, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ndt2212@gmail.com",
                             EmailConfirmed = true,
@@ -271,7 +268,7 @@ namespace Users.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "katsu2212@gmail.com",
                             NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL+PyQOf85qZZggsjPLFxOAz+bTF/mLqccFvGFb6rKvRNMk1AtRGlxwLZlAnutbE5A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP6n+BVQZD/U/drrw7VmfH8RFSez6/EBWKhCqvwKG7QQjTrffjPo0mHztEnvw6mVdA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -604,7 +601,7 @@ namespace Users.Data.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreate = new DateTime(2023, 6, 27, 12, 15, 20, 701, DateTimeKind.Local).AddTicks(5214),
+                            DateCreate = new DateTime(2023, 6, 27, 11, 37, 42, 633, DateTimeKind.Local).AddTicks(2611),
                             OgPrice = 100000m,
                             Price = 200000m,
                             Stock = 0,

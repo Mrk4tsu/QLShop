@@ -108,9 +108,10 @@ namespace Users.Data.Extensions
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "Abcd1234$"),
                 SecurityStamp = string.Empty,
-                Name = "Thắng",
+                LastName = "Thắng",
                 FirstName = "Nguyễn Đức",
-                DoB = new DateTime(22,2,22)
+                DoB = new DateTime(22,2,22),
+                Adress = "2 Lê Văn Tám"
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>
