@@ -1,7 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,14 +12,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Users.Application.Catalog.Products;
 using Users.Application.Common;
 using Users.Application.System.Users;
 using Users.Data.EF;
 using Users.Data.Entities;
 using Users.Utilities.Constants;
+using Users.ViewModels.System.Users;
 
 namespace Users.BackendAPI
 {
@@ -39,7 +39,7 @@ namespace Users.BackendAPI
 
             services.AddIdentity<AppUsers, AppRole>()
                 .AddEntityFrameworkStores<UsersDbContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders(); 
 
             //Declare API
             services.AddTransient<IPublicProductService, PublicProductService>();
@@ -49,8 +49,9 @@ namespace Users.BackendAPI
             services.AddTransient<SignInManager<AppUsers>, SignInManager<AppUsers>>();
             services.AddTransient<RoleManager<AppRole>, RoleManager<AppRole>>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 
             services.AddSwaggerGen(c =>
             {
