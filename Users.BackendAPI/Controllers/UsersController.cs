@@ -9,6 +9,7 @@ namespace Users.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -31,7 +32,7 @@ namespace Users.BackendAPI.Controllers
             }
             return Ok(resultToken);
         }
-        [HttpPost("register")]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
@@ -44,6 +45,13 @@ namespace Users.BackendAPI.Controllers
                 return BadRequest("Register is unsuccessful.");
             }
             return Ok();
+        }
+
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery]GetUserPagingRequest request)
+        {
+            var user = await _userService.GetUsersPaging(request);
+            return Ok(user);
         }
     }
 }

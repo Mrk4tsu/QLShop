@@ -24,6 +24,7 @@ namespace Users.ManageApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -33,8 +34,12 @@ namespace Users.ManageApp
 
             services.AddControllersWithViews()
                      .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            services.AddSession(option =>
+            {
+                option.IdleTimeout = TimeSpan.FromSeconds(30);
+            });
 
-            services.AddTransient<IUserApiClient, UserApiClient>();
+			services.AddTransient<IUserApiClient, UserApiClient>();
 
             IMvcBuilder builder = services.AddRazorPages();
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -64,10 +69,10 @@ namespace Users.ManageApp
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseRouting();
-
+            
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+			app.UseSession();
+			app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",

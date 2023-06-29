@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Users.Data.Entities;
 using Users.Utilities.Exceptions;
+using Users.ViewModels.Base;
+using Users.ViewModels.Catalog.Products;
 using Users.ViewModels.System.Users;
 
 namespace Users.Application.System.Users
@@ -55,7 +59,37 @@ namespace Users.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<bool> Register(RegisterRequest request)
+		public async Task<PagedResult<UserVModel>> GetUsersPaging(GetUserPagingRequest request)
+		{
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                query = query.Where(x => x.UserName.Contains(request.Keyword) || x.PhoneNumber.Contains(request.Keyword));
+            }
+			int totalRow = await query.CountAsync();
+
+			var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+				.Take(request.PageSize)
+				.Select(x => new UserVModel()
+				{
+					Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    Username = x.UserName,
+                    FirstName = x.FirstName,
+                    Id = x.Id,
+                    LastName = x.LastName
+				}).ToListAsync();
+
+			//Select
+			var pageResult = new PagedResult<UserVModel>()
+			{
+				TotalRecord = totalRow,
+				Items = data
+			};
+			return pageResult;
+		}
+
+		public async Task<bool> Register(RegisterRequest request)
         {
             var user = new AppUsers()
             {
