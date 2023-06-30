@@ -8,5 +8,6 @@ namespace Users.ManageApp.Services
     {
         Task<string> Authenticate(LoginRequest request);
         Task<PagedResult<UserVModel>> GetUserPaging(GetUserPagingRequest request);
+        Task<bool> RegisterUser(RegisterRequest request);
     }
 }
