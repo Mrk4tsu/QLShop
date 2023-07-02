@@ -114,6 +114,7 @@ ul.devided > li:last-child{
 
 .dropdown-content{
 	/* display: flex; */
+	white-space: nowrap;
 	opacity: 0;
 	visibility: hidden;
 	position: absolute;
