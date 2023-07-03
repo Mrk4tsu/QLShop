@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Users.ViewModels.Base;
 using Users.ViewModels.System.Users;
 
@@ -6,8 +7,10 @@ namespace Users.ManageApp.Services
 {
     public interface IUserApiClient
     {
-        Task<string> Authenticate(LoginRequest request);
-        Task<PagedResult<UserVModel>> GetUserPaging(GetUserPagingRequest request);
-        Task<bool> RegisterUser(RegisterRequest request);
+        Task<APIResult<string>> Authenticate(LoginRequest request);
+        Task<APIResult<PagedResult<UserVModel>>> GetUsersPagings(GetUserPagingRequest request);
+        Task<APIResult<bool>> RegisterUser(RegisterRequest registerRequest);
+        Task<APIResult<bool>> UpdateUser(Guid id, UserUpdateRequest request);
+        Task<APIResult<UserVModel>> GetById(Guid id);
     }
 }

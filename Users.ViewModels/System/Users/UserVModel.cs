@@ -14,5 +14,6 @@ namespace Users.ViewModels.System.Users
 		public string PhoneNumber { get; set; }
 		public string Email { get; set; }
 		public string Username { get; set; }
-	}
+        public DateTime Dob { get; set; }
+    }
 }
