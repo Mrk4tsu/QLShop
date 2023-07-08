@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Users.ViewModels.Base
 {
-    public class APIErrorResult<T> : APIResult<T>
+    public class ApiSuccessResult<T> : ApiResult<T>
     {
         public string[] ValidatioError { get; set; }
-        public APIErrorResult()
+        public ApiSuccessResult()
         {
         }
-        public APIErrorResult(string message) {
+        public ApiSuccessResult(string message) {
             IsSuccessed = false;
             Message = message;
         }
-        public APIErrorResult(string[] validatioError)
+        public ApiSuccessResult(string[] validatioError)
         {
             IsSuccessed = false;
             ValidatioError = validatioError;

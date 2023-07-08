@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Users.ViewModels.Base
 {
-    public class APISucessResult<T> : APIResult<T>
+    public class APISucessResult<T> : ApiResult<T>
     {
         public APISucessResult(T resultObj)
         {

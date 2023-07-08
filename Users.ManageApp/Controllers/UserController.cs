@@ -20,42 +20,42 @@ namespace Users.ManageApp.Controllers
         private readonly IUserApiClient _userApiClient;
         private readonly IConfiguration _configuration;
 
-        public UserController(IUserApiClient userApiClient, IConfiguration configuration) 
+        public UserController(IUserApiClient userApiClient, IConfiguration configuration)
         {
             _userApiClient = userApiClient;
             _configuration = configuration;
         }
+
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)
         {
-			
-			var request = new GetUserPagingRequest()
-			{
-				Keyword = keyword,
-				PageIndex = pageIndex,
-				PageSize = pageSize
-			};
-			var data = await _userApiClient.GetUsersPagings(request);
+            var request = new GetUserPagingRequest()
+            {
+                Keyword = keyword,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+            var data = await _userApiClient.GetUsersPagings(request);
             return View(data.ResultObject);
         }
-        
-		[HttpGet]
-		public IActionResult Create()
-		{			
-			return View();
-		}
-		[HttpPost]
-		public async Task<IActionResult> Create(RegisterRequest register)
-		{
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(RegisterRequest request)
+        {
             if (!ModelState.IsValid)
                 return View();
 
-            var result = await _userApiClient.RegisterUser(register);
-
+            var result = await _userApiClient.RegisterUser(request);
             if (result.IsSuccessed)
                 return RedirectToAction("Index");
 
             ModelState.AddModelError("", result.Message);
-            return View(register);
+            return View(request);
         }
 
         [HttpGet]
@@ -88,17 +88,17 @@ namespace Users.ManageApp.Controllers
             var result = await _userApiClient.UpdateUser(request.Id, request);
             if (result.IsSuccessed)
                 return RedirectToAction("Index");
+
             ModelState.AddModelError("", result.Message);
             return View(request);
-		}
-		
-		[HttpPost]
-		public async Task<IActionResult> Logout()
-		{
-			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Remove("Token");
-			return RedirectToAction("Login", "User");
-		}
-		
+            return RedirectToAction("Login", "User");
+        }
     }
 }

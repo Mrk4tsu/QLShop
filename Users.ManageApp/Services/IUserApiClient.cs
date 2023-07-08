@@ -7,10 +7,10 @@ namespace Users.ManageApp.Services
 {
     public interface IUserApiClient
     {
-        Task<APIResult<string>> Authenticate(LoginRequest request);
-        Task<APIResult<PagedResult<UserVModel>>> GetUsersPagings(GetUserPagingRequest request);
-        Task<APIResult<bool>> RegisterUser(RegisterRequest registerRequest);
-        Task<APIResult<bool>> UpdateUser(Guid id, UserUpdateRequest request);
-        Task<APIResult<UserVModel>> GetById(Guid id);
+        Task<ApiResult<string>> Authenticate(LoginRequest request);
+        Task<ApiResult<PagedResult<UserVModel>>> GetUsersPagings(GetUserPagingRequest request);
+        Task<ApiResult<bool>> RegisterUser(RegisterRequest registerRequest);
+        Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest request);
+        Task<ApiResult<UserVModel>> GetById(Guid id);
     }
 }

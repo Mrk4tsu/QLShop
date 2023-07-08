@@ -6,7 +6,7 @@ using Users.ViewModels.Catalog.ProductsImage;
 
 namespace Users.Application.Catalog.Products
 {
-    public interface IManageProductService
+    public interface IProductService
     {
         Task<int> Create(ProductCreateRequest create);
         Task<int> Update(ProductUpdateRequest edit);
@@ -21,5 +21,6 @@ namespace Users.Application.Catalog.Products
         Task<int> UpdateImage(int imageId, ProductImageUpdateRequest request);
         Task<List<ProductImageViewModel>> GetListImage(int productID);
         Task<ProductImageViewModel> GetImageByID(int imageID);
+        Task<PagedResult<ProductViewModel>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request);
     }
 }

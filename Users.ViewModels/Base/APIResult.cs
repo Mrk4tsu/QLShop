@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Users.ViewModels.Base
 {
-    public class APIResult<T>
+    public class ApiResult<T>
     {
         public bool IsSuccessed { get; set; }
         public string Message { get; set; }

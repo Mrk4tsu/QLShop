@@ -17,16 +17,59 @@ using Users.ViewModels.Catalog.ProductsImage;
 
 namespace Users.Application.Catalog.Products
 {
-    public class ManageProductService : IManageProductService
+    public class ProductService : IProductService
     {
         private readonly UsersDbContext _context;
         private readonly IStorageService _storageService;
-        public ManageProductService(UsersDbContext context, IStorageService storageService)
+        public ProductService(UsersDbContext context, IStorageService storageService)
         {
             _context = context;
             _storageService = storageService;
         }
+        public async Task<PagedResult<ProductViewModel>> GetAllByCategoryId(string languageId, GetPublicProductPagingRequest request)
+        {
+            //1. Select join
+            var query = from p in _context.Products
+                        join pt in _context.ProductTranslations on p.ID equals pt.ProductId
+                        join pic in _context.ProductInCategories on p.ID equals pic.ProductId
+                        join c in _context.Categories on pic.CategoryId equals c.Id
+                        where pt.LanguageId == languageId
+                        select new { p, pt, pic };
+            //2. filter
+            if (request.CategoryID.HasValue && request.CategoryID.Value > 0)
+            {
+                query = query.Where(p => p.pic.CategoryId == request.CategoryID);
+            }
+            //3. Paging
+            int totalRow = await query.CountAsync();
 
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .Select(x => new ProductViewModel()
+                {
+                    ID = x.p.ID,
+                    Name = x.pt.Name,
+                    DateCreate = x.p.DateCreate,
+                    Description = x.pt.Description,
+                    Details = x.pt.Details,
+                    LanguageId = x.pt.LanguageId,
+                    OgPrice = x.p.OgPrice,
+                    Price = x.p.Price,
+                    SeoAlias = x.pt.SeoAlias,
+                    SeoDescription = x.pt.SeoDescription,
+                    SeoTitle = x.pt.SeoTitle,
+                    Stock = x.p.Stock,
+                    ViewCount = x.p.ViewCount
+                }).ToListAsync();
+
+            //4. Select and projection
+            var pagedResult = new PagedResult<ProductViewModel>()
+            {
+                TotalRecord = totalRow,
+                Items = data
+            };
+            return pagedResult;
+        }
         public async Task<int> AddImage(int productId, ProductImageCreateRequest request)
         {
             var productImage = new ProductImage()

@@ -29,7 +29,7 @@ namespace Users.Application.System.Users
             _roleManager = roleManager;
             _config = config;
         }
-        public async Task<APIResult<string>> Authencate(LoginRequest request)
+        public async Task<ApiResult<string>> Authencate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null) return null;
@@ -37,7 +37,7 @@ namespace Users.Application.System.Users
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
-                return new APIErrorResult<string>("Đăng nhập không đúng");
+                return new ApiSuccessResult<string>("Đăng nhập không đúng");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -59,12 +59,12 @@ namespace Users.Application.System.Users
             return new APISucessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        public async Task<APIResult<UserVModel>> GetById(Guid id)
+        public async Task<ApiResult<UserVModel>> GetById(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
-                return new APIErrorResult<UserVModel>("User không tồn tại");
+                return new ApiSuccessResult<UserVModel>("User không tồn tại");
             }
             var userVm = new UserVModel()
             {
@@ -78,7 +78,7 @@ namespace Users.Application.System.Users
             return new APISucessResult<UserVModel>(userVm);
         }
 
-        public async Task<APIResult<PagedResult<UserVModel>>> GetUsersPaging(GetUserPagingRequest request)
+        public async Task<ApiResult<PagedResult<UserVModel>>> GetUsersPaging(GetUserPagingRequest request)
 		{
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -111,16 +111,16 @@ namespace Users.Application.System.Users
             return new APISucessResult<PagedResult<UserVModel>>(pagedResult);
         }
 
-		public async Task<APIResult<bool>> Register(RegisterRequest request)
+		public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user != null)
             {
-                return new APIErrorResult<bool>("Tài khoản đã tồn tại");
+                return new ApiSuccessResult<bool>("Tài khoản đã tồn tại");
             }
             if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
-                return new APIErrorResult<bool>("Emai đã tồn tại");
+                return new ApiSuccessResult<bool>("Emai đã tồn tại");
             }
 
             user = new AppUsers()
@@ -137,14 +137,14 @@ namespace Users.Application.System.Users
             {
                 return new APISucessResult<bool>();
             }
-            return new APIErrorResult<bool>("Đăng ký không thành công");
+            return new ApiSuccessResult<bool>("Đăng ký không thành công");
         }
 
-        public async Task<APIResult<bool>> Update(Guid id, UserUpdateRequest request)
+        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
         {
             if (await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id))
             {
-                return new APIErrorResult<bool>("Emai đã tồn tại");
+                return new ApiSuccessResult<bool>("Emai đã tồn tại");
             }
             var user = await _userManager.FindByIdAsync(id.ToString());
             user.DoB = request.Dob;
@@ -158,7 +158,7 @@ namespace Users.Application.System.Users
             {
                 return new APISucessResult<bool>();
             }
-            return new APIErrorResult<bool>("Cập nhật không thành công");
+            return new ApiSuccessResult<bool>("Cập nhật không thành công");
         }
     }
 }

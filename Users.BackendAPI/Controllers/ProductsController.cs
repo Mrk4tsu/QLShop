@@ -13,32 +13,23 @@ namespace Users.BackendAPI.Controllers
     [Authorize]
     public class ProductsController : ControllerBase
     {
-        private readonly IPublicProductService _publicProductService;
-        private readonly IManageProductService _manageProductService;
-        public ProductsController(IPublicProductService publicProductService, IManageProductService manageProductService)
+        private readonly IProductService _productService;
+        public ProductsController(IProductService productService)
         {
-            _publicProductService = publicProductService;
-            _manageProductService = manageProductService;
-        }
-        //https://localhost:port/product
-        [HttpGet("languageID")]
-        public async Task<IActionResult> GetAll(string languageID)
-        {
-            var product = await _publicProductService.GetAll(languageID);
-            return Ok(product);
+            _productService = productService;
         }
         //https://localhost:port/product/public-paging
         [HttpGet("{languageID}")]
         public async Task<IActionResult> Get(string languageID, [FromQuery] GetPublicProductPagingRequest request)
         {
-            var product = await _publicProductService.GetAllByCategoryID(languageID, request);
+            var product = await _productService.GetAllByCategoryId(languageID, request);
             return Ok(product);
         }
         //https://localhost:port/product/1
         [HttpGet("{productID}/{LanguageID}")]
         public async Task<IActionResult> GetByID(int productID, string LanguageID)
         {
-            var product = await _manageProductService.GetByID(productID, LanguageID);
+            var product = await _productService.GetByID(productID, LanguageID);
             if (product == null)
                 return BadRequest($"Không tìm thấy sản phẩm có ID: {productID}");
             return Ok(product);
@@ -50,11 +41,11 @@ namespace Users.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _manageProductService.Create(request);
+            var result = await _productService.Create(request);
             if (result == 0)
                 return BadRequest();
 
-            var product = await _manageProductService.GetByID(result, request.LanguageId);
+            var product = await _productService.GetByID(result, request.LanguageId);
 
             return CreatedAtAction(nameof(GetByID), new { id = result }, product);
         }
@@ -65,7 +56,7 @@ namespace Users.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var affectedResult = await _manageProductService.Update(request);
+            var affectedResult = await _productService.Update(request);
             if (affectedResult == 0)
                 return BadRequest();
 
@@ -74,7 +65,7 @@ namespace Users.BackendAPI.Controllers
         [HttpPatch("{productID}/{newPrice}")]
         public async Task<IActionResult> UpdatePrice(int productID, decimal newPrice)
         {
-            var isSuccesfull = await _manageProductService.UpdatePrice(productID, newPrice);
+            var isSuccesfull = await _productService.UpdatePrice(productID, newPrice);
             if (isSuccesfull == true)
                 return Ok();
 
@@ -83,7 +74,7 @@ namespace Users.BackendAPI.Controllers
         [HttpDelete("{productID}")]
         public async Task<IActionResult> Delete(int productID)
         {
-            var affectedResult = await _manageProductService.Delete(productID);
+            var affectedResult = await _productService.Delete(productID);
             if (affectedResult == 0)
                 return BadRequest();
 
@@ -93,7 +84,7 @@ namespace Users.BackendAPI.Controllers
         [HttpGet("{productID}/images/{imageID}")]
         public async Task<IActionResult> GetImageByID(int productID, int imageID)
         {
-            var image = await _manageProductService.GetImageByID(imageID);
+            var image = await _productService.GetImageByID(imageID);
             if (image == null)
                 return BadRequest($"Không tìm thấy sản phẩm có ID: {productID}");
             return Ok(image);
@@ -106,11 +97,11 @@ namespace Users.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var imageID = await _manageProductService.UpdateImage(productID, request);
+            var imageID = await _productService.UpdateImage(productID, request);
             if (imageID == 0)
                 return BadRequest();
 
-            var image = await _manageProductService.GetImageByID(imageID);
+            var image = await _productService.GetImageByID(imageID);
 
             return CreatedAtAction(nameof(GetImageByID), new { id = imageID }, image);
         }
@@ -122,7 +113,7 @@ namespace Users.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _manageProductService.UpdateImage(imageID, request);
+            var result = await _productService.UpdateImage(imageID, request);
             if (result == 0)
                 return BadRequest();           
 
@@ -135,7 +126,7 @@ namespace Users.BackendAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var result = await _manageProductService.RemoveImages(imageID);
+            var result = await _productService.RemoveImages(imageID);
             if (result == 0)
                 return BadRequest();
 

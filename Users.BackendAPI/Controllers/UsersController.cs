@@ -21,7 +21,7 @@ namespace Users.BackendAPI.Controllers
         }
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authencate([FromBody]LoginRequest request)
+        public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -50,10 +50,10 @@ namespace Users.BackendAPI.Controllers
         }
 
         [HttpGet("paging")]
-        public async Task<IActionResult> GetAllPaging([FromQuery]GetUserPagingRequest request)
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
         {
-            var user = await _userService.GetUsersPaging(request);
-            return Ok(user);
+            var products = await _userService.GetUsersPaging(request);
+            return Ok(products);
         }
         //PUT: http://localhost/api/users/id
         [HttpPut("{id}")]
